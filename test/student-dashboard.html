@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="student-dashboard.css">
+</head>
+<body>
+  <header>
+    <h1>Student Dashboard</h1>
+    <nav>
+      <ul>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#supervisor-comments">Supervisor Comments</a></li>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="logout">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="welcome" class="container">
+      <h2>Welcome <span id="firstName"></span> <span id="lastName"></span></h2>
+    </section>
+
+    <section id="projects" class="container">
+      <h2>Projects</h2>
+      <ul id="projectList">
+        <!-- Projects will be dynamically added here -->
+      </ul>
+    </section>
+
+    <section id="supervisor-comments" class="container">
+      <h2>Supervisor Comments</h2>
+      <ul id="commentsList">
+        <!-- Supervisor comments will be dynamically added here -->
+      </ul>
+    </section>
+
+    <section id="profile" class="container">
+      <h2>Profile</h2>
+      <!-- Student profile information will be dynamically added here -->
+    </section>
+  </main>
+
+  <script src="student-dashboard.js"></script>
+</body>
+</html>

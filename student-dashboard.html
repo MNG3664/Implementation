@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet" href="student-dashboard.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+</head>
+<body>
+    
+    <nav>
+        <ul>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="/supervisor-comments.html">Supervisor Comments</a></li>
+            <li><a href="#profile">Profile</a></li> 
+            <li><a href="/login.html" id="logout">Logout</a></li>
+            <li><a href="/Upload-project.html">Upload Project</a></li> 
+        </ul>
+    </nav>
+
+    <section id="profile" class="container">
+        <h2>Profile</h2>
+        <div id="profileData">
+            <!-- Profile data will be dynamically inserted here -->
+        </div>
+    </section>
+    
+    <script>
+        // Function to handle logout
+        function logout() {
+            window.location.href = "login.html";
+        }
+
+        // Fetch student profile data from the server
+        axios.get('/api/student/profile')
+            .then(response => {
+                const profileData = response.data;
+                const profileElement = document.getElementById('profileData');
+
+                // Create profile information elements dynamically
+                const nameParagraph = document.createElement('p');
+                nameParagraph.textContent = `Name: ${profileData.name}`;
+
+                const emailParagraph = document.createElement('p');
+                emailParagraph.textContent = `Email: ${profileData.email}`;
+
+                const studentIdParagraph = document.createElement('p');
+                studentIdParagraph.textContent = `Student ID: ${profileData.studentId}`;
+
+                // Append profile information elements to the profile container
+                profileElement.appendChild(nameParagraph);
+                profileElement.appendChild(emailParagraph);
+                profileElement.appendChild(studentIdParagraph);
+            })
+            .catch(error => {
+                console.error('Error fetching student profile:', error);
+                
+            });
+
+        // Add event listener to logout link
+        document.getElementById('logout').addEventListener('click', logout);
+    </script>
+</body>
+</html>

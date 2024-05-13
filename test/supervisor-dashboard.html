@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervisor Dashboard</title>
+  <link rel="stylesheet" href="supervisor-dashboard.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+  <header>
+    <h1>Supervisor Dashboard</h1>
+  </header>
+  <main>
+    <!-- Notifications Section -->
+    <section class="notifications" aria-label="Notifications">
+      <h2>Notifications</h2>
+      <!-- Add dynamic content for notifications -->
+      <p>No new notifications at the moment.</p>
+    </section>
+
+    <!-- Students Section -->
+    <section class="students" aria-label="Students">
+      <h2>Students You Are Supervising</h2>
+      <div class="search-container">
+        <input type="text" placeholder="Search students..." id="searchInput" aria-label="Search students">
+      </div>
+      <div class="student-list">
+        <ul>
+          <!-- Add dynamic content for the list of students -->
+          <li><a href="student1_profile.html">Student 1</a></li>
+          <li><a href="student2_profile.html">Student 2</a></li>
+        </ul>
+      </div>
+      <div class="pagination-container">
+        <button id="prevPage" disabled aria-label="Previous page">Previous</button>
+        <span id="currentPage">1</span>
+        <button id="nextPage" aria-label="Next page">Next</button>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" aria-label="Projects">
+      <h2>Student Projects</h2>
+      <!-- Add dynamic content for student projects -->
+      <div class="project">
+        <h3>Project Title</h3>
+        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula, ligula vel lacinia tincidunt.</p>
+        <p>Uploaded by: Student Name</p>
+        <button aria-label="Add comment">Add Comment</button>
+        <!-- Button to add comments -->
+        <!-- Comments will be displayed here -->
+        <ul class="comments" aria-label="Comments">
+          <li>Supervisor Comment 1</li>
+          <li>Supervisor Comment 2</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- Templates for Components -->
+  <template id="studentTemplate">
+    <li><a href="#"></a></li>
+  </template>
+
+  <template id="projectTemplate">
+    <div class="project">
+      <h3></h3>
+      <p></p>
+      <p></p>
+      <button aria-label="Add comment">Add Comment</button>
+      <ul class="comments" aria-label="Comments"></ul>
+    </div>
+  </template>
+
+  <!-- Script for Interactivity and Pagination -->
+  <script src="supervisor-dashboard.js"></script>
+</body>
+</html>
