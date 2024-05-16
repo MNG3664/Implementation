@@ -34,7 +34,7 @@
         }
 
         // Fetch student profile data from the server
-        axios.get('/api/student/profile')
+        axios.get('/profile')
             .then(response => {
                 const profileData = response.data;
                 const profileElement = document.getElementById('profileData');

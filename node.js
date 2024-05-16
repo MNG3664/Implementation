@@ -66,8 +66,7 @@ app.post('/submit-project', upload.single('projectFile'), (req, res) => {
   const projectTitle = req.body.projectTitle;
   const projectFile = req.file;
 
-  // Save the project information to a database or storage mechanism
-  // Example: Save to a MySQL database
+  
   const projectData = {
     title: projectTitle,
     filePath: projectFile.path,
@@ -136,7 +135,7 @@ app.get('/get_username', (req, res) => {
 
   // Query the database to get the username based on the user's role
   const query = `SELECT first_name, last_name FROM ${tableName} WHERE id = ?`;
-  connection.query(query, [req.session.userId], (err, results) => {
+  connection.query(query, [req.session.user], (err, results) => {
     if (err) {
       console.error('Error fetching username from database:', err);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -158,11 +157,11 @@ app.use(express.static(path.join(__dirname, 'Implementation')));
 
 
 // Defining the route to handle GET requests for fetching student profile data
-app.get('/api/student/profile', (req, res) => {
-  const query = 'SELECT * FROM student WHERE student_id = ?'; 
+app.get('/profile', (req, res) => {
+  const query = 'SELECT * FROM student WHERE user_name = ?'; 
   
 
-  connection.query(query, [req.session.userId], (err, results) => {
+  connection.query(query, [req.session.user], (err, results) => {
     if (err) {
       console.error('Error fetching student profile:', err);
       res.status(500).json({ error: 'Internal Server Error' });

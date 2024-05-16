@@ -85,7 +85,7 @@ connection.connect(err => {
 
 // Example route to handle fetching the username
 app.get('/get_username', (req, res) => {
-  // Assuming the user's role is available in the session or request
+
   const userType = req.session.userType; // Example: Retrieving user role from session
 
   // Define the table name based on the user's role

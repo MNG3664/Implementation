@@ -1,45 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Registeration</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='registeruser.css'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="register.css">
+
+  <title>Register</title>
 </head>
 <body>
-    <section class="register-user">
-        <h2>Register User</h2>
-        <form id="registerUserForm" method="POST" action="/register">
-            <label for="userType">User Type:</label>
-            <select id="userType" name="userType" required>
-                <option value="">Select User Type</option>
-                <option value="supervisor">Supervisor</option>
-                <option value="student">Student</option>
-            </select>
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" required>
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" required>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <input type="submit" value="Register User">
-            <label for="supervisorId">Supervisor ID:</label>
-            <input type="number" id="supervisorId" name="supervisorId">
+  <div class="card">
+    <div class="card_header">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path fill="currentColor" d="M4 15h2v5h12V4H6v5H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zm6-4V8l5 4-5 4v-3H2v-2h8z"></path>
+      </svg>
+      <h1 class="form_heading">Register</h1>
+    </div>
+    <form id="register-form" class="form" method="POST" action="/register">
+      <div class="field">
+        <label for="firstName">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM7.27 7.27l4.46 4.46c.39-.53.86-1.01 1.39-1.39l-4.46-4.46c-.39.53-.86 1.01-1.39 1.39zm9.46 9.46l-4.46-4.46c-.39.53-.86 1.01-1.39 1.39l4.46 4.46c.39-.53.86-1.01 1.39-1.39z"></path>
+          </svg>
+          First Name:
+        </label>
+        <input type="text" id="firstName" name="firstName" class="input" placeholder="Enter your first name" required>
+      </div>
+      <div class="field">
+        <label for="lastName">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14a4 4 0 0 0-3.46 6.06l1.41 1.41A2.5 2.5 0 1 1 12 11l-1.17-1.17a4 4 0 1 0 0 5.66L12 16a6 6 0 1 1 0-12z"></path>
+          </svg>
+          Last Name:
+        </label>
+        <input type="text" id="lastName" name="lastName" class="input" placeholder="Enter your last name" required>
+      </div>
+      <div class="field">
+        <label for="username">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM7.27 7.27l4.46 4.46c.39-.53.86-1.01 1.39-1.39l-4.46-4.46c-.39.53-.86 1.01-1.39 1.39zm9.46 9.46l-4.46-4.46c-.39.53-.86 1.01-1.39 1.39l4.46 4.46c.39-.53.86-1.01 1.39-1.39z"></path>
+          </svg>
+          Username:
+        </label>
+        <input type="text" id="username" name="username" class="input" placeholder="Enter your username" required>
+      </div>
+      <div class="field">
+        <label for="email">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1 2h2v-2h-2v2zm0-4h2V7h-2v11zm0-9h2V5h-2v2z"></path>
+          </svg>
+          Email:
+        </label>
+        <input type="email" id="email" name="email" class="input" placeholder="Enter your email" required>
+      </div>
+      <div class="field">
+        <label for="password">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14a4 4 0 0 0-3.46 6.06l1.41 1.41A2.5 2.5 0 1 1 12 11l-1.17-1.17a4 4 0 1 0 0 5.66L12 16a6 6 0 1 1 0-12z"></path>
+          </svg>
+          Password:
+        </label>
+        <div style="position: relative;"> 
+          <input type="password" id="password" name="password" class="input" placeholder="Enter your password" required>
+          <span class="password-toggle" onclick="togglePasswordVisibility()">👁️</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="user-type">User Type:</label>
+        <select id="user-type" name="user-type" class="input">
+          <option value="supervisor">Supervisor</option>
+          <option value="student">Student</option>
+        </select>
+      </div>
+      <div class="field">
+        <button type="submit" class="button">Register</button>
+      </div>
+      <div class="error-message" id="error-message"></div> 
+    </form>
+  </div>
 
-        </form>
-    </section>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('registerUserForm').addEventListener('submit', function(event) {
+  <script>
+    function togglePasswordVisibility() {
+      var passwordInput = document.getElementById("password");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('register-form').addEventListener('submit', function(event) {
         event.preventDefault();
 
         // Validate user type
-        const userType = document.getElementById('userType').value;
+        const userType = document.getElementById('user-type').value;
         if (userType === '') {
             alert('Please select a user type.');
             return;
@@ -71,7 +130,8 @@
             // Handle errors
         });
 
-        document.getElementById('registerUserForm').reset();
+        // Reset the form after submission
+        document.getElementById('register-form').reset();
     });
 });
 

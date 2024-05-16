@@ -3,28 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="login.css"> <!-- Link to your CSS file -->
+  <link rel="stylesheet" type="text/css" href="login.css">
 
   <title>Login</title>
 </head>
 <body>
-  <h1>Login</h1>
-  <form id="login-form">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br><br>
-    <label for="password">Password:</label>
-    <div style="position: relative;"> <!-- Added a container for the password input -->
-      <input type="password" id="password" name="password" required>
-      <span class="password-toggle" onclick="togglePasswordVisibility()">👁️</span> <!-- Password visibility toggle icon -->
-    </div><br><br>
-    <select id="user-type" name="user-type">
-      <option value="admin">Admin</option>
-      <option value="student">Student</option>
-      <option value="supervisor">Supervisor</option>
-    </select><br><br>
-    <button type="submit">Login</button>
-    <div class="error-message" id="error-message"></div> <!-- Error message container -->
-  </form>
+  <div class="card">
+    <div class="card_header">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path fill="currentColor" d="M4 15h2v5h12V4H6v5H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zm6-4V8l5 4-5 4v-3H2v-2h8z"></path>
+      </svg>
+      <h1 class="form_heading">Login</h1>
+    </div>
+    <form id="login-form" class="form">
+      <div class="field">
+        <label for="username">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM7.27 7.27l4.46 4.46c.39-.53.86-1.01 1.39-1.39l-4.46-4.46c-.39.53-.86 1.01-1.39 1.39zm9.46 9.46l-4.46-4.46c-.39.53-.86 1.01-1.39 1.39l4.46 4.46c.39-.53.86-1.01 1.39-1.39z"></path>
+          </svg>
+          Username:
+        </label>
+        <input type="text" id="username" name="username" class="input" placeholder="Enter your username" required>
+      </div>
+      <div class="field">
+        <label for="password">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14a4 4 0 0 0-3.46 6.06l1.41 1.41A2.5 2.5 0 1 1 12 11l-1.17-1.17a4 4 0 1 0 0 5.66L12 16a6 6 0 1 1 0-12z"></path>
+          </svg>
+          Password:
+        </label>
+        <div style="position: relative;"> 
+          <input type="password" id="password" name="password" class="input" placeholder="Enter your password" required>
+          <span class="password-toggle" onclick="togglePasswordVisibility()">👁️</span> <!-- Password visibility toggle icon -->
+        </div>
+      </div>
+      <div class="field">
+        <label for="user-type">User Type:</label>
+        <select id="user-type" name="user-type" class="input">
+          <option value="admin">Admin</option>
+          <option value="student">Student</option>
+          <option value="supervisor">Supervisor</option>
+        </select>
+      </div>
+      <div class="field">
+        <button type="submit" class="button">Login</button>
+      </div>
+      <div class="error-message" id="error-message"></div> <!-- Error message container -->
+    </form>
+  </div>
+
+
 
   <script>
     // Add JavaScript function for password visibility toggle
