@@ -1,48 +1,115 @@
 body {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1000%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(21%2c 67%2c 96%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c547.356C103.657%2c552.911%2c203.249%2c508.205%2c289.121%2c449.881C373.54%2c392.544%2c447.684%2c316.217%2c481.878%2c220.066C514.738%2c127.667%2c487.128%2c29.037%2c473.316%2c-68.053C459.482%2c-165.295%2c467.1%2c-274.813%2c401.125%2c-347.577C335.419%2c-420.045%2c228.653%2c-442.743%2c130.878%2c-445.729C45.366%2c-448.341%2c-23.115%2c-381.725%2c-106.611%2c-363.084C-198.731%2c-342.517%2c-314.182%2c-396.62%2c-382.2%2c-331.178C-449.233%2c-266.683%2c-413.189%2c-153.227%2c-421.061%2c-60.539C-428.419%2c26.096%2c-452.985%2c112.014%2c-426.886%2c194.952C-398.869%2c283.988%2c-341.851%2c360.504%2c-269.87%2c419.926C-191.566%2c484.567%2c-101.393%2c541.923%2c0%2c547.356' fill='%2311364d'%3e%3c/path%3e%3cpath d='M1440 937.683C1514.815 932.904 1587.963 927.222 1656.548 896.9549999999999 1734.439 862.581 1820.252 827.054 1860.586 752.075 1901.571 675.885 1883.838 583.588 1871.156 498.009 1858.521 412.751 1844.3020000000001 323.714 1787.5 258.89 1730.828 194.214 1644.117 170.05700000000002 1561.85 145.01799999999997 1478.84 119.75299999999999 1391.738 87.67399999999998 1308.805 113.19200000000001 1226.21 138.606 1169.739 211.834 1118.513 281.43 1070.451 346.728 1037.272 420.203 1023.9649999999999 500.183 1010.4359999999999 581.495 1009.6669999999999 665.939 1041.917 741.798 1074.638 818.764 1129.872 888.88 1204.912 925.8050000000001 1276.769 961.163 1360.078 942.788 1440 937.683' fill='%23195073'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1000'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+  }
+
+  header {
+    background-color:#45454a; 
+    color: #fff; 
+    padding: 20px;
+    display: flex; 
+    justify-content: center;
 }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
+nav ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
     text-align: center;
 }
 
-h2 {
-    margin-bottom: 20px;
+nav ul li a {
+    color: #fff; 
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
 }
 
-label {
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+  }
+  
+  .card_header {
+    text-align: center;
+  }
+  
+  .form_heading {
+    margin: 0;
+  }
+  
+  .form {
+    margin-top: 20px;
+  }
+  
+  .field {
+    margin-bottom: 15px;
+  }
+  
+  label {
     display: block;
-    margin-bottom: 10px;
-}
-
-input[type="text"],
-input[type="file"],
-button {
+    font-weight: bold;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  button {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: #45454a;
+    background-color: #007bff;
     color: #fff;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-}
-
-button:hover {
-    background-color: #45454a;
-}
-
-/* Responsive styles */
-@media screen and (max-width: 600px) {
-    .container {
-        width: 100%;
-        padding: 0 10px;
-    }
-}
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  

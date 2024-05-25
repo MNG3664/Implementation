@@ -1,39 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Upload Project</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <title>Upload Project</title>
 </head>
 <body>
-    <div class="container">
-        <h2>Upload Project</h2>
-<form id="projectForm">
-    <label for="projectTitle">Project Title:</label>
-    <input type="text" id="projectTitle" name="projectTitle" required>
-  
-    <label for="projectFile">Project File:</label>
-    <input type="file" id="projectFile" name="projectFile" required>
-  
-    <button type="submit">Upload Project</button>
-  </form>
+  <header>
+    <nav>
+        <ul>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#supervisor_comments">Supervisor Comments</a></li>
+            <li><a href="#profile">Profile</a></li> 
+            <li><a href="/login.html" id="logout">Logout</a></li> 
+        </ul>
+    </nav>
+</header>
+
+  <div class="container">
+    <div class="card">
+      <div class="card_header">
+        <h2 class="form_heading">Upload Project</h2>
+      </div>
+      <form id="projectForm" class="form">
+        <div class="field">
+          <label for="projectTitle">
+            Project Title:
+          </label>
+          <input type="text" id="projectTitle" name="projectTitle" class="input" placeholder="Enter project title" required>
+        </div>
+        <div class="field">
+          <label for="projectFile">
+            Project File:
+          </label>
+          <input type="file" id="projectFile" name="projectFile" class="input" required>
+        </div>
+        <div class="field">
+          <button type="submit" class="button">Upload Project</button>
+        </div>
+      </form>
     </div>
+  </div>
+</body>
+</html>
+
     <script>
         
 const projectForm = document.getElementById('projectForm');
 
 // Add an event listener for form submission
 projectForm.addEventListener('submit', (event) => {
-  event.preventDefault(); // Prevent the default form submission
+  event.preventDefault(); 
 
   // Get the form data
   const formData = new FormData(projectForm);
 
   // Send the form data to the server using fetch
-  fetch('/submit-project', {
+  fetch('/upload', {
     method: 'POST',
     body: formData
   })

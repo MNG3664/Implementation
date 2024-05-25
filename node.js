@@ -222,7 +222,7 @@ app.post('/upload', upload.single('projectFile'), (req, res) => {
   const { projectTitle, projectDescription, studentId } = req.body;
 
   // Save project details to the database
-  const query = 'INSERT INTO projects (project_title, project_description, student_id, file_path) VALUES (?, ?, ?, ?)';
+  const query = 'INSERT INTO project (project_name, project_description, student_id) VALUES (?, ?, ?, ?)';
   connection.query(query, [projectTitle, projectDescription, studentId, req.file.path], (error, results, fields) => {
     if (error) {
       console.error('Error uploading project:', error);
@@ -324,7 +324,7 @@ app.post('/submit-comment', (req, res) => {
   };
 
 
-  const query = 'INSERT INTO projects (project_name, project_description, student_id,) VALUES (?, ?, ?, ?)';
+  const query = 'INSERT INTO project (project_name, project_description, student_id,) VALUES (?, ?, ?, ?)';
   connection.query(query, [title, description, studentId, req.file.path], (error, results, fields) => {
     if (error) {
       console.error('Error uploading project:', error);
@@ -361,7 +361,7 @@ app.post('/upload', upload.single('projectFile'), (req, res) => {
   const studentId = req.query.studentId; // Assuming student ID is passed as a query parameter
 
   // Save project details to the database
-  const query = 'INSERT INTO projects (project_name, project_description, student_id,) VALUES (?, ?, ?, ?)';
+  const query = 'INSERT INTO project (project_name, project_description, student_id,) VALUES (?, ?, ?)';
   connection.query(query, [title, description, studentId, req.file.path], (error, results, fields) => {
     if (error) {
       console.error('Error uploading project:', error);
@@ -377,7 +377,7 @@ app.get('/supervisor-projects', (req, res) => {
   const supervisorId = req.query.supervisorId; // Assuming supervisor ID is passed as a query parameter
 
   // Query projects from the database
-  const query = 'SELECT * FROM projects WHERE supervisor_id = ?';
+  const query = 'SELECT * FROM project WHERE supervisor_id = ?';
   connection.query(query, [supervisorId], (error, results, fields) => {
     if (error) {
       console.error('Error fetching projects for supervisor:', error);
@@ -406,7 +406,7 @@ app.post('/comment', (req, res) => {
 
 // Fetch project details and comments for students
 app.get('/student-project', (req, res) => {
-  const projectId = req.query.projectId; // Assuming project ID is passed as a query parameter
+  const projectId = req.query.projectId; 
 
   // Query project details and comments from the database
   const projectQuery = 'SELECT * FROM projects WHERE id = ?';
