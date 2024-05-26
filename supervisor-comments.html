@@ -21,8 +21,44 @@
         </ul>
     </nav>
         
-    <!-- Student Project List -->
-    <ul id="projectsList">
+    <div class="container">
+        <h2>Uploaded Projects</h2>
+        <div id="projectsList"></div>
+      </div>
+    
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+        const socket = io();
+    
+        // Function to fetch and display projects
+        const fetchProjects = () => {
+          fetch('/api/projects')
+            .then(response => response.json())
+            .then(projects => {
+              const projectsList = document.getElementById('projectsList');
+              projectsList.innerHTML = '';
+              projects.forEach(project => {
+                const projectElement = document.createElement('div');
+                projectElement.classList.add('project');
+                projectElement.innerHTML = `
+                  <h3>${project.title}</h3>
+                  <p><a href="${project.filePath}" download>Download Project</a></p>
+                `;
+                projectsList.appendChild(projectElement);
+              });
+            })
+            .catch(error => console.error('Error fetching projects:', error));
+        };
+    
+        // Fetch projects when the page loads
+        window.onload = fetchProjects;
+    
+        // Listen for real-time updates
+        socket.on('newProject', (project) => {
+          fetchProjects(); // Re-fetch and update the projects list
+        });
+      </script>
+    
 
     
     <script>
@@ -32,38 +68,6 @@ function logout() {
 }
 
 
-const commentData = [
-    {
-        "title": "Project 1",
-        "comments": [
-            {"text": "Comment 1"},
-            {"text": "Comment 2"}
-        ]
-    },
-    {
-        "title": "Project 2",
-        "comments": [
-            {"text": "Comment 3"}
-        ]
-    }
-];
-
-// Render projects and comments from example data
-const projectList = document.getElementById('projectList');
-commentData.forEach(project => {
-    const projectItem = document.createElement('li');
-    projectItem.textContent = project.title;
-
-    const commentsList = document.createElement('ul');
-    project.comments.forEach(comment => {
-        const commentItem = document.createElement('li');
-        commentItem.textContent = comment.text;
-        commentsList.appendChild(commentItem);
-    });
-
-    projectItem.appendChild(commentsList);
-    projectList.appendChild(projectItem);
-});
 
 // Add event listener to logout link
 document.getElementById('logout').addEventListener('click', logout);

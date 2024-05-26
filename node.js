@@ -201,6 +201,10 @@ app.get('/student-dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'student-dashboard.html'));
 });
 
+app.get('/projects', (req, res) => {
+  res.sendFile(path.join(__dirname, 'projects.html'));
+});
+
 
 app.get('/supervisor-dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'supervisor-dashboard.html'));
@@ -212,28 +216,55 @@ app.get('/registeruser.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'registeruser.html'));
 });
 
-
-app.get('/supervisor-comments', (req, res) => {
-  res.sendFile(path.join(__dirname, 'supervisor-comments.html'));
+app.get('/supervisors-comments', (req, res) => {
+  res.sendFile(path.join(__dirname, 'supervisors-comments.html'));
 });
 
 
 app.post('/upload', upload.single('projectFile'), (req, res) => {
-  const { projectTitle, projectDescription, studentId } = req.body;
+  const { projectTitle } = req.body;
+  const projectFile = req.file;
 
-  // Save project details to the database
-  const query = 'INSERT INTO project (project_name, project_description, student_id) VALUES (?, ?, ?, ?)';
-  connection.query(query, [projectTitle, projectDescription, studentId, req.file.path], (error, results, fields) => {
+  if (!projectTitle || !projectFile) {
+    return res.status(400).json({ message: 'Project title and file are required' });
+  }
+
+  
+  const query = 'INSERT INTO project (title, filePath, student_Id) VALUES (?, ?, ?)';
+  const studentId = req.session.user; // Assuming the student ID is stored in the session
+
+  connection.query(query, [projectTitle, projectFile.path, studentId], (error, results) => {
     if (error) {
       console.error('Error uploading project:', error);
-      res.status(500).send('Internal Server Error');
-      return;
+      return res.status(500).send('Internal Server Error');
     }
-    // Emit a 'newProject' event to all connected supervisors
-    io.emit('newProject', { projectTitle, projectDescription });
+
+    
+    io.emit('newProject', { projectTitle, filePath: projectFile.path, studentId });
+    
     res.send('Project uploaded successfully.');
   });
 });
+
+
+// Serve the supervisors-comments HTML page
+app.get('/correction', (req, res) => {
+  res.sendFile(path.join(__dirname, 'correction.html'));
+});
+
+// API endpoint to fetch projects
+app.get('/api/projects', (req, res) => {
+  const query = 'SELECT title, filePath FROM project';
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching projects:', error);
+      return res.status(500).send('Internal Server Error');
+    }
+    res.json(results);
+  });
+});
+
+
 
 // Supervisor connects to WebSocket
 io.on('connection', (socket) => {

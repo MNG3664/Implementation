@@ -150,21 +150,7 @@ app.get('/registeruser.html', (req, res) => {
 });
 
 
-// Handle file upload
-app.post('/upload', upload.single('projectFile'), (req, res) => {
-  res.send('File uploaded successfully.');
-});
 
-// Define endpoint to serve projects
-app.get('/repository', (req, res) => {
-    // Assuming projects are stored in an array of objects
-    const projects = [
-        { title: 'Project 1 Title', url: 'project1.pdf' },
-        { title: 'Project 2 Title', url: 'project2.pdf' },
-        
-    ];
-    res.json(projects);
-});
 
 // Define route to handle login request
 // Define route to handle login request
