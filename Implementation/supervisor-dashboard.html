@@ -11,10 +11,10 @@
     <header>
         <nav>
             <ul>
-                <li><a href="#projects">Projects</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="#supervisor_comments">Supervisor Comments</a></li>
                 <li><a href="#profile">Profile</a></li> 
-                <li><a href="/login.html" id="logout">Logout</a></li>
-                <li><a href="/correction.html" id="correction">Correction</a></li> 
+                <li><a href="#" id="logout">Logout</a></li> 
             </ul>
         </nav>
     </header>
@@ -28,13 +28,14 @@
         <section class="students">
             <h2>Students You Are Supervising</h2>
             <ul>
+                <!-- Add dynamic content for the list of students -->
                 <li><a href="student1_profile.html">Student 1</a></li>
                 <li><a href="student2_profile.html">Student 2</a></li>
             </ul>
         </section>
 
         <ul id="projectList">
-            
+            <!-- Projects will be dynamically added here -->
         </ul>
         
         <!-- Supervisor Comment Form -->
@@ -82,7 +83,7 @@
             const commentText = document.getElementById('commentText').value;
             const projectId = document.getElementById('projectId').value;
             
-            
+            // Do something with the comment, for example, display it on the page
             const commentContainer = document.createElement('div');
             commentContainer.textContent = `Comment for Project ${projectId}: ${commentText}`;
             document.body.appendChild(commentContainer);
@@ -91,7 +92,7 @@
             document.getElementById('commentText').value = '';
         });
         
-        
+        // Add event listener to logout link
         document.getElementById('logout').addEventListener('click', logout);
 
         const socket = io();
