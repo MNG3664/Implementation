@@ -14,7 +14,7 @@
         <ul>
             <li><a href="#projects">Projects</a></li>
             <li><a href="/supervisor-comments.html">Supervisor Comments</a></li>
-            <li><a href="#profile">Profile</a></li> 
+            <li><a href="/student-dashboard.html">Profile</a></li> 
             <li><a href="/login.html" id="logout">Logout</a></li>
             <li><a href="/Upload-project.html">Upload Project</a></li> 
         </ul>
@@ -23,7 +23,7 @@
     <section id="profile" class="container">
         <h2>Profile</h2>
         <div id="profileData">
-            <!-- Profile data will be dynamically inserted here -->
+        
         </div>
     </section>
     
@@ -34,7 +34,7 @@
         }
 
         // Fetch student profile data from the server
-        axios.get('/api/student/profile')
+        axios.get('/profile')
             .then(response => {
                 const profileData = response.data;
                 const profileElement = document.getElementById('profileData');
@@ -56,7 +56,7 @@
             })
             .catch(error => {
                 console.error('Error fetching student profile:', error);
-                // Handle error, e.g., display an error message to the user
+                
             });
 
         // Add event listener to logout link
