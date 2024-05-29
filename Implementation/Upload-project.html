@@ -10,7 +10,7 @@
   <header>
     <nav>
         <ul>
-            <li><a href="#projects">Projects</a></li>
+             <li><a href="/repository">Projects</a></li>
             <li><a href="#supervisor_comments">Supervisor Comments</a></li>
             <li><a href="#profile">Profile</a></li> 
             <li><a href="/login.html" id="logout">Logout</a></li> 
@@ -49,11 +49,11 @@
         
 const projectForm = document.getElementById('projectForm');
 
-// Add an event listener for form submission
+
 projectForm.addEventListener('submit', (event) => {
   event.preventDefault(); 
 
-  // Get the form data
+
   const formData = new FormData(projectForm);
 
   // Send the form data to the server using fetch

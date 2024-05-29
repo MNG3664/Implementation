@@ -10,10 +10,10 @@
 
 </head>
 <body>
-    <!-- Navigation menu -->
+    
     <nav>
         <ul>
-            <li><a href="#projects">Projects</a></li>
+            <li><a href="/repository">Projects</a></li>
             <li><a href="/supervisor-comments.html">Supervisor Comments</a></li>
             <li><a href="#profile">Profile</a></li> 
             <li><a href="/login.html" id="logout">Logout</a></li>
@@ -21,8 +21,20 @@
         </ul>
     </nav>
         
-    <!-- Student Project List -->
-    <ul id="projectsList">
+    <div class="container">
+        <h2>Uploaded Projects</h2>
+        <div id="projectsList"></div>
+      </div>
+    
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+        const socket = io();
+    
+      
+    
+      
+      </script>
+    
 
     
     <script>
@@ -32,38 +44,6 @@ function logout() {
 }
 
 
-const commentData = [
-    {
-        "title": "Project 1",
-        "comments": [
-            {"text": "Comment 1"},
-            {"text": "Comment 2"}
-        ]
-    },
-    {
-        "title": "Project 2",
-        "comments": [
-            {"text": "Comment 3"}
-        ]
-    }
-];
-
-// Render projects and comments from example data
-const projectList = document.getElementById('projectList');
-commentData.forEach(project => {
-    const projectItem = document.createElement('li');
-    projectItem.textContent = project.title;
-
-    const commentsList = document.createElement('ul');
-    project.comments.forEach(comment => {
-        const commentItem = document.createElement('li');
-        commentItem.textContent = comment.text;
-        commentsList.appendChild(commentItem);
-    });
-
-    projectItem.appendChild(commentsList);
-    projectList.appendChild(projectItem);
-});
 
 // Add event listener to logout link
 document.getElementById('logout').addEventListener('click', logout);

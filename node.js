@@ -226,7 +226,7 @@ app.get('/correction', (req, res) => {
 });
 
 app.get('/repository', (req, res) => {
-  res.sendFile(path.join(__dirname, '.html'));
+  res.sendFile(path.join(__dirname, 'repository.html'));
 });
 
 // API endpoint to fetch projects
