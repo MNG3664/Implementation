@@ -30,33 +30,9 @@
       <script>
         const socket = io();
     
-        // Function to fetch and display projects
-        const fetchProjects = () => {
-          fetch('/api/projects')
-            .then(response => response.json())
-            .then(projects => {
-              const projectsList = document.getElementById('projectsList');
-              projectsList.innerHTML = '';
-              projects.forEach(project => {
-                const projectElement = document.createElement('div');
-                projectElement.classList.add('project');
-                projectElement.innerHTML = `
-                  <h3>${project.title}</h3>
-                  <p><a href="${project.filePath}" download>Download Project</a></p>
-                `;
-                projectsList.appendChild(projectElement);
-              });
-            })
-            .catch(error => console.error('Error fetching projects:', error));
-        };
+      
     
-        // Fetch projects when the page loads
-        window.onload = fetchProjects;
-    
-        // Listen for real-time updates
-        socket.on('newProject', (project) => {
-          fetchProjects(); // Re-fetch and update the projects list
-        });
+      
       </script>
     
 

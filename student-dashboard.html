@@ -41,13 +41,13 @@
 
                 // Create profile information elements dynamically
                 const nameParagraph = document.createElement('p');
-                nameParagraph.textContent = `Name: ${profileData.name}`;
+                nameParagraph.textContent = `Name: ${profileData.first_name}`;
 
                 const emailParagraph = document.createElement('p');
                 emailParagraph.textContent = `Email: ${profileData.email}`;
 
                 const studentIdParagraph = document.createElement('p');
-                studentIdParagraph.textContent = `Student ID: ${profileData.studentId}`;
+                studentIdParagraph.textContent = `Student ID: ${profileData.student_Id}`;
 
                 // Append profile information elements to the profile container
                 profileElement.appendChild(nameParagraph);

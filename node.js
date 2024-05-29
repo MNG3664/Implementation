@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const http = require('http'); 
 const socketIO = require('socket.io');
 const session = require('express-session');
+const { log, profile } = require('console');
 const MySQLStore = require('express-mysql-session')(session);
 
 
@@ -156,34 +157,6 @@ app.get('/get_username', (req, res) => {
 app.use(express.static(path.join(__dirname, 'Implementation')));
 
 
-// Defining the route to handle GET requests for fetching student profile data
-app.get('/profile', (req, res) => {
-  const query = 'SELECT * FROM student WHERE user_name = ?'; 
-  
-
-  connection.query(query, [req.session.user], (err, results) => {
-    if (err) {
-      console.error('Error fetching student profile:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
-      return;
-    }
-
-    if (results.length === 0) {
-      res.status(404).json({ error: 'Student profile not found' });
-      return;
-    }
-
-    
-    const profileData = {
-      name: results[0].name,
-      email: results[0].email,
-      studentId: results[0].studentId,
-    };
-
-    
-    res.json(profileData);
-  });
-});
 
 
 
@@ -230,7 +203,7 @@ app.post('/upload', upload.single('projectFile'), (req, res) => {
   }
 
   
-  const query = 'INSERT INTO project (title, filePath, student_Id) VALUES (?, ?, ?)';
+  const query = 'INSERT INTO project (project_name, filePath, student_Id) VALUES (?, ?, ?)';
   const studentId = req.session.user; // Assuming the student ID is stored in the session
 
   connection.query(query, [projectTitle, projectFile.path, studentId], (error, results) => {
@@ -254,12 +227,13 @@ app.get('/correction', (req, res) => {
 
 // API endpoint to fetch projects
 app.get('/api/projects', (req, res) => {
-  const query = 'SELECT title, filePath FROM project';
+  const query = 'SELECT project_name, filePath FROM project';
   connection.query(query, (error, results) => {
     if (error) {
       console.error('Error fetching projects:', error);
       return res.status(500).send('Internal Server Error');
     }
+    console.log(results)
     res.json(results);
   });
 });
@@ -325,6 +299,37 @@ app.post('/login', (req, res) => {
       res.status(401).json({ message: 'Invalid username or password' });
     }
   });
+});
+
+// Defining the route to handle GET requests for fetching student profile data
+app.get('/profile', (req, res) => {
+  const query = 'SELECT * FROM student WHERE user_name = ?'; 
+  
+
+  connection.query(query, [req.session.user], (err, results) => {
+    if (err) {
+      console.error('Error fetching student profile:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+
+    if (results.length === 0) {
+      res.status(404).json({ error: 'Student profile not found' });
+      return;
+    }
+
+    
+    const profileData = {
+      name: results[0].first_name,
+      email: results[0].email,
+      studentId: results[0].student_ID,
+    };
+
+       
+    res.json(profileData);
+    console.log(profile)
+  });
+
 });
 
 

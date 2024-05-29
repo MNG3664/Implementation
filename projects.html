@@ -26,7 +26,7 @@
         </section>
 
         
-
+        
 
         <div class="container">
             <h2>Uploaded Projects</h2>
@@ -46,11 +46,18 @@ const fetchProjects = () => {
       const projectsList = document.getElementById('projectsList');
       projectsList.innerHTML = '';
       projects.forEach(project => {
+        console.log(project)
         const projectElement = document.createElement('div');
         projectElement.classList.add('project');
         projectElement.innerHTML = `
-          <h3>${project.title}</h3>
+          <h3>${project.project_name}</h3>
           <p><a href="${project.filePath}" download>Download Project</a></p>
+          <form id="commentForm">
+            <label for="commentText">Add Comment:</label>
+            <textarea id="commentText" name="commentText" required></textarea>
+            <input type="hidden" id="projectId" name="projectId">
+            <button type="submit">Submit Comment</button>
+          </form>
         `;
         projectsList.appendChild(projectElement);
       });
@@ -63,6 +70,11 @@ window.onload = fetchProjects;
 
 // Listen for real-time updates
 socket.on('newProject', (project) => {
+  const notifications = document.getElementById('notifications');
+  const notificationMessage = document.getElementById('notificationMessage');
+  notificationMessage.textContent = `New project uploaded: ${project.projectTitle}`;
+  notifications.style.display = 'block';
+
   fetchProjects(); // Re-fetch and update the projects list
 });
 
