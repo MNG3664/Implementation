@@ -225,6 +225,10 @@ app.get('/correction', (req, res) => {
   res.sendFile(path.join(__dirname, 'correction.html'));
 });
 
+app.get('/repository', (req, res) => {
+  res.sendFile(path.join(__dirname, '.html'));
+});
+
 // API endpoint to fetch projects
 app.get('/api/projects', (req, res) => {
   const query = 'SELECT project_name, filePath FROM project';
