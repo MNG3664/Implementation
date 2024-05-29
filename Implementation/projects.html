@@ -39,59 +39,23 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
 // Function to fetch and display projects
-// const fetchProjects = () => {
-//   fetch('/projects')
-//     .then(response => response.json())
-//     .then(projects => {
-//       const projectsList = document.getElementById('projectsList');
-//       projectsList.innerHTML = '';
-//       projects.forEach(project => {
-//         const projectElement = document.createElement('div');
-//         projectElement.classList.add('project');
-//         projectElement.innerHTML = `
-//           <h3>${project.title}</h3>
-//           <p><a href="${project.filePath}" download>Download Project</a></p>
-//         `;
-//         projectsList.appendChild(projectElement);
-//       });
-//     })
-//     .catch(error => console.error('Error fetching projects:', error));
-// };
-
-
-
-// Fetch projects when the page loads
-//window.onload = fetchProjects;
-
-// Listen for real-time updates
-// socket.on('newProject', (project) => {
-//   fetchProjects(); // Re-fetch and update the projects list
-// });
-
 const fetchProjects = () => {
-  fetch('/projects')
+  fetch('/api/projects')
     .then(response => response.json())
     .then(projects => {
       const projectsList = document.getElementById('projectsList');
       projectsList.innerHTML = '';
-      projects.forEach(project => appendProjectToList(project));
+      projects.forEach(project => {
+        const projectElement = document.createElement('div');
+        projectElement.classList.add('project');
+        projectElement.innerHTML = `
+          <h3>${project.title}</h3>
+          <p><a href="${project.filePath}" download>Download Project</a></p>
+        `;
+        projectsList.appendChild(projectElement);
+      });
     })
-    .catch(error => {
-      console.error('Error fetching projects:', error);
-      const projectsList = document.getElementById('projectsList');
-      projectsList.innerHTML = '<p class="error">Failed to load projects. Please try again later.</p>';
-    });
-};
-
-const appendProjectToList = (project) => {
-  const projectsList = document.getElementById('projectsList');
-  const projectElement = document.createElement('div');
-  projectElement.classList.add('project');
-  projectElement.innerHTML = `
-    <h3>${sanitizeHTML(project.title)}</h3>
-    <p><a href="${sanitizeURL(project.filePath)}" download>Download Project</a></p>
-  `;
-  projectsList.appendChild(projectElement);
+    .catch(error => console.error('Error fetching projects:', error));
 };
 
 // Fetch projects when the page loads
@@ -99,24 +63,9 @@ window.onload = fetchProjects;
 
 // Listen for real-time updates
 socket.on('newProject', (project) => {
-  appendProjectToList(project);
+  fetchProjects(); // Re-fetch and update the projects list
 });
 
-// Helper functions to sanitize input
-const sanitizeHTML = (str) => {
-  const tempDiv = document.createElement('div');
-  tempDiv.textContent = str;
-  return tempDiv.innerHTML;
-};
-
-const sanitizeURL = (url) => {
-  try {
-    return new URL(url, window.location.origin).href;
-  } catch (e) {
-    console.error('Invalid URL:', url);
-    return '#';
-  }
-};
 
         // Function to handle logout
         function logout() {

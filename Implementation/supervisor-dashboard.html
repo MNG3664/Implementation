@@ -11,7 +11,7 @@
     <header>
         <nav>
             <ul>
-                <li><a href="#projects">Projects</a></li>
+                <li><a href="/projects">Projects</a></li>
                 <li><a href="#supervisor_comments">Supervisor Comments</a></li>
                 <li><a href="#profile">Profile</a></li> 
                 <li><a href="#" id="logout">Logout</a></li> 
@@ -34,18 +34,7 @@
             </ul>
         </section>
 
-        <ul id="projectList">
-            <!-- Projects will be dynamically added here -->
-        </ul>
-        
-        <!-- Supervisor Comment Form -->
-        <form id="commentForm">
-            <label for="commentText">Add Comment:</label>
-            <textarea id="commentText" name="commentText" required></textarea>
-            <input type="hidden" id="projectId" name="projectId">
-            <button type="submit">Submit Comment</button>
-        </form>
-    </main>
+
     <script>
         // Function to handle logout
         function logout() {
