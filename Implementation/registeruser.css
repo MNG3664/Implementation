@@ -3,71 +3,72 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
     background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.container {
+    width: 80%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .card {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .card_header {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.card_header svg {
-    margin-right: 10px;
-    fill: #4285f4;
-}
-
-.form_heading {
-    font-size: 1.2rem;
-    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .form {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .field {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .field label {
     display: flex;
     align-items: center;
-    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.field label svg {
-    margin-right: 10px;
-    fill: #4285f4;
+.field svg {
+    margin-right: 5px;
 }
 
 .input {
-    width: calc(100% - 10px);
-    padding: 8px;
+    width: 100%;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
+    border-radius: 5px;
 }
 
 .password-toggle {
     position: absolute;
-    top: 50%;
     right: 10px;
+    top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
 }
+
 
 .button {
     padding: 10px 20px;
@@ -90,4 +91,74 @@ body {
     .card {
         width: 90%;
     }
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+}
+
+/* Container to center the content */
+header .container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Styles for the h1 element */
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Styles for the navigation bar */
+nav {
+    display: flex;
+    align-items: center;
+}
+
+/* Styles for the unordered list within the nav */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+/* Styles for the list items within the ul */
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+
+nav ul li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+
+nav ul li a#logout {
+    color: #ff4c4c;
+}
+
+
+nav ul li a#logout:hover {
+    background-color: #ff4c4c;
+    color: white;
+    border-radius: 5px;
 }

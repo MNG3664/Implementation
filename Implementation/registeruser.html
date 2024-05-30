@@ -9,16 +9,15 @@
 </head>
 <body>
   <header>
-    <h1>Admin Dashboard</h1>
     <nav>
         <div class="container">
-            <h1>Admin Dashboard</h1>
+            <h1>Regiser Users</h1>
             <ul>
                 <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
                 <li><a href="#"><i class="fas fa-project-diagram"></i> Projects</a></li>
                 <li><a href="/registeruser.html"><i class="fas fa-user-plus"></i> Register User</a></li>
                 <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li> <!-- Added id="logout" -->
+                <li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li> 
             </ul>
         </div>
     </nav>
@@ -150,6 +149,14 @@
         document.getElementById('register-form').reset();
     });
 });
+
+  // Function to handle logout
+  function logout() {
+        window.location.href = "login.html";
+    }
+
+    // Add event listener to logout link
+    document.getElementById('logout').addEventListener('click', logout);
 
     </script>
 </body>
