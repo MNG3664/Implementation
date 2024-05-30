@@ -6,6 +6,14 @@ body {
     padding: 0;
 }
 
+.notifications, .students {
+    background-color: #fff; /* Section background color */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
 
 header {
     background-color: #333;
