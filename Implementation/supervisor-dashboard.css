@@ -107,6 +107,11 @@ button:hover {
     background-color: #0056b3; /* Button background color on hover */
 }
 
+#logout {
+    cursor: pointer;
+    color: #f44336;
+}
+
 .comments {
     list-style-type: none;
     padding: 0;

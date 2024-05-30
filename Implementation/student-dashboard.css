@@ -42,6 +42,11 @@ a:hover {
     max-width: 600px;
 }
 
+#logout {
+    cursor: pointer;
+    color: #f44336;
+}
+
 .container h2 {
     color: #555; /* Section header text color */
 }

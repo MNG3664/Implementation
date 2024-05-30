@@ -231,16 +231,24 @@ app.get('/repository', (req, res) => {
 
 // API endpoint to fetch projects
 app.get('/api/projects', (req, res) => {
-  const query = 'SELECT project_name, filePath FROM project';
+  const searchQuery = req.query.search ? req.query.search.toLowerCase() : '';
+
+  let query = 'SELECT project_name, filePath FROM project';
+  if (searchQuery) {
+      query += ` WHERE LOWER(project_name) LIKE '%${searchQuery}%'`;
+  }
+
   connection.query(query, (error, results) => {
-    if (error) {
-      console.error('Error fetching projects:', error);
-      return res.status(500).send('Internal Server Error');
+      if (error) {
+          console.error('Error fetching projects:', error);
+          return res.status(500).send('Internal Server Error');
     }
     console.log(results)
     res.json(results);
   });
 });
+
+app.use(express.static('public'));
 
 
 

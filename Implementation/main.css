@@ -88,6 +88,11 @@ li {
     border-radius: 4px;
     box-sizing: border-box;
   }
+
+  #logout {
+    cursor: pointer;
+    color: #f44336;
+}
   
   button {
     width: 100%;

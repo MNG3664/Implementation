@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repsository</title>
+    <title>Repository</title>
     <link rel="stylesheet" href="repo.css">
     <script src="/socket.io/socket.io.js"></script>
 </head>
@@ -11,68 +11,65 @@
     <header>
         <nav>
             <ul>
-              <li><a href="/repository">Repository</a></li>
-              <li><a href="/supervisor-comments.html">Supervisor Comments</a></li>
-              <li><a href="/student-dashboard.html">Profile</a></li> 
-              <li><a href="/login.html" id="logout">Logout</a></li>
-              <li><a href="/Upload-project.html">Upload Project</a></li>  
+                <li><a href="/repository">Repository</a></li>
+                <li><a href="/supervisor-comments.html">Supervisor Comments</a></li>
+                <li><a href="/student-dashboard.html">Profile</a></li>
+                <li><a href="/login.html" id="logout">Logout</a></li>
+                <li><a href="/Upload-project.html">Upload Project</a></li>  
             </ul>
         </nav>
     </header>       
-        
 
-        <div class="container">
-            <h2>Uploaded Projects</h2>
-            <div id="projectsList"></div>
-          </div>
-        
-        
-     
-    </main>
+    <div class="container">
+        <h2>Uploaded Projects</h2>
+        <input type="text" id="searchInput" placeholder="Search for projects...">
+        <button onclick="searchProjects()">Search</button>
+        <div id="projectsList"></div>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
-// Function to fetch and display projects
-const fetchProjects = () => {
-  fetch('/api/projects')
-    .then(response => response.json())
-    .then(projects => {
-      const projectsList = document.getElementById('projectsList');
-      projectsList.innerHTML = '';
-      projects.forEach(project => {
-        console.log(project)
-        const projectElement = document.createElement('div');
-        projectElement.classList.add('project');
-        projectElement.innerHTML = `
-          <h3>${project.project_name}</h3>
-          <p><a href="${project.filePath}" download>Download Project</a></p>
-        `;
-        projectsList.appendChild(projectElement);
-      });
-    })
-    .catch(error => console.error('Error fetching projects:', error));
-};
+        // Function to fetch and display projects
+        const fetchProjects = (searchQuery = '') => {
+            fetch(`/api/projects?search=${encodeURIComponent(searchQuery)}`)
+                .then(response => response.json())
+                .then(projects => {
+                    const projectsList = document.getElementById('projectsList');
+                    projectsList.innerHTML = '';
+                    projects.forEach(project => {
+                        const projectElement = document.createElement('div');
+                        projectElement.classList.add('project');
+                        projectElement.innerHTML = `
+                            <h3>${project.project_name}</h3>
+                            <p><a href="${project.filePath}" download>Download Project</a></p>
+                        `;
+                        projectsList.appendChild(projectElement);
+                    });
+                })
+                .catch(error => console.error('Error fetching projects:', error));
+        };
 
-// Fetch projects when the page loads
-window.onload = fetchProjects;
+        // Fetch projects when the page loads
+        window.onload = () => fetchProjects();
 
-// Listen for real-time updates
-socket.on('newProject', (project) => {
-  fetchProjects(); // Re-fetch and update the projects list
-});
-
+        // Listen for real-time updates
+        const socket = io();
+        socket.on('newProject', (project) => {
+            fetchProjects(); // Re-fetch and update the projects list
+        });
 
         // Function to handle logout
         function logout() {
             window.location.href = "login.html";
         }
-        
-        
+
         document.getElementById('logout').addEventListener('click', logout);
 
-        const socket = io();
-
-
+        // Function to search for projects
+        function searchProjects() {
+            const searchQuery = document.getElementById('searchInput').value;
+            fetchProjects(searchQuery);
+        }
     </script>
-    
 </body>
 </html>
