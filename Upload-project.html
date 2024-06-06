@@ -44,34 +44,36 @@
   </div>
 </body>
 </html>
+    <div id="messageContainer"></div>
+
 
     <script>
         
-const projectForm = document.getElementById('projectForm');
+      const projectForm = document.getElementById('projectForm');
+      const messageContainer = document.getElementById('messageContainer');
+
+        projectForm.addEventListener('submit', (event) => {
+        event.preventDefault(); 
 
 
-projectForm.addEventListener('submit', (event) => {
-  event.preventDefault(); 
-
-
-  const formData = new FormData(projectForm);
+            const formData = new FormData(projectForm);
 
   // Send the form data to the server using fetch
-  fetch('/upload', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    // Handle the response from the server
-    console.log('Project submitted successfully');
+          fetch('/upload', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          // Handle the response from the server
+          console.log('Project submitted successfully');
 
-  })
-  .catch(error => {
-    // Handle any errors
-    console.error('Error submitting project:', error);
-    
-  });
-});
+        })
+        .catch(error => {
+          // Handle any errors
+          console.error('Error submitting project:', error);
+          
+        });
+      });
     </script>
 </body>
 </html>>

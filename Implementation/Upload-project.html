@@ -10,7 +10,7 @@
   <header>
     <nav>
         <ul>
-             <li><a href="/repository">Repository </a></li>
+             <li><a href="/repository">Repository</a></li>
             <li><a href="#supervisor_comments">Supervisor Comments</a></li>
             <li><a href="/student-dashboard.html">Profile</a></li> 
             <li><a href="/login.html" id="logout">Logout</a></li> 
@@ -44,34 +44,33 @@
   </div>
 </body>
 </html>
-
-    <script>
-        
-const projectForm = document.getElementById('projectForm');
+    <div id="messageContainer"></div>
 
 
-projectForm.addEventListener('submit', (event) => {
-  event.preventDefault(); 
+    <div id="messageContainer"></div>
 
+<script>
+  const projectForm = document.getElementById('projectForm');
+  const messageContainer = document.getElementById('messageContainer');
 
-  const formData = new FormData(projectForm);
+  projectForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-  // Send the form data to the server using fetch
-  fetch('/upload', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    // Handle the response from the server
-    console.log('Project submitted successfully');
+    const formData = new FormData(projectForm);
 
-  })
-  .catch(error => {
-    // Handle any errors
-    console.error('Error submitting project:', error);
-    
+    fetch('/upload', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Display the success message
+      messageContainer.textContent = data.message;
+    })
+    .catch(error => {
+      console.error('Error submitting project:', error);
+    });
   });
-});
-    </script>
+</script>
 </body>
 </html>>

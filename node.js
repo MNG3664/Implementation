@@ -405,18 +405,24 @@ app.get('/Upload-project', (req, res) => {
 
 // Handle file upload
 app.post('/upload', upload.single('projectFile'), (req, res) => {
-  const { project_name, project_description, student_id } = req.body;
-  const studentId = req.query.studentId; // Assuming student ID is passed as a query parameter
+  const { projectTitle } = req.body;
+  const projectFile = req.file;
+
+  if (!projectTitle || !projectFile) {
+    return res.status(400).json({ message: 'Project title and file are required' });
+  }
 
   // Save project details to the database
-  const query = 'INSERT INTO project (project_name, project_description, student_id,) VALUES (?, ?, ?)';
-  connection.query(query, [title, description, studentId, req.file.path], (error, results, fields) => {
+  const query = 'INSERT INTO project (project_name, filePath, student_Id) VALUES (?, ?, ?)';
+  const studentId = req.session.user;
+
+  connection.query(query, [projectTitle, projectFile.path, studentId], (error, results) => {
     if (error) {
       console.error('Error uploading project:', error);
-      res.status(500).send('Internal Server Error');
-      return;
+      return res.status(500).send('Internal Server Error');
     }
-    res.send('Project uploaded successfully.');
+
+    res.status(200).json({ message: 'Project uploaded successfully' });
   });
 });
 
