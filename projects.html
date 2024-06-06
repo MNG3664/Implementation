@@ -18,79 +18,88 @@
             </ul>
         </nav>
     </header>
-    
     <main>
         <section class="notifications">
             <h2>Notifications</h2>
-            <p>No new notifications at the moment.</p>
+            <p id="notificationMessage">No new notifications at the moment.</p>
         </section>
-
-        
-        
-
         <div class="container">
             <h2>Uploaded Projects</h2>
             <div id="projectsList"></div>
-          </div>
-        
-        
-     
+        </div>
     </main>
-    <script src="/socket.io/socket.io.js"></script>
     <script>
-// Function to fetch and display projects
-const fetchProjects = () => {
-  fetch('/api/projects')
-    .then(response => response.json())
-    .then(projects => {
-      const projectsList = document.getElementById('projectsList');
-      projectsList.innerHTML = '';
-      projects.forEach(project => {
-        console.log(project)
-        const projectElement = document.createElement('div');
-        projectElement.classList.add('project');
-        projectElement.innerHTML = `
-          <h3>${project.project_name}</h3>
-          <p><a href="${project.filePath}" download>Download Project</a></p>
-          <form id="commentForm">
-            <label for="commentText">Add Comment:</label>
-            <textarea id="commentText" name="commentText" required></textarea>
-            <input type="hidden" id="projectId" name="projectId">
-            <button type="submit">Submit Comment</button>
-          </form>
-        `;
-        projectsList.appendChild(projectElement);
+      const fetchProjects = () => {
+        fetch('/api/projects')
+          .then(response => response.json())
+          .then(projects => {
+            const projectsList = document.getElementById('projectsList');
+            projectsList.innerHTML = '';
+            projects.forEach(project => {
+              const projectElement = document.createElement('div');
+              projectElement.classList.add('project');
+              projectElement.innerHTML = `
+                <h3>${project.project_name}</h3>
+                <p>Uploaded by: ${project.student_name}</p>
+                <p><a href="${project.filePath}" download>Download Project</a></p>
+                <form class="commentForm">
+                  <label for="commentText">Add Comment:</label>
+                  <textarea class="commentText" name="commentText" required></textarea>
+                  <input type="hidden" class="projectId" name="projectId" value="${project.id}">
+                  <button type="submit">Submit Comment</button>
+                </form>
+                <div class="comments"></div>
+              `;
+              projectsList.appendChild(projectElement);
+              fetchComments(project.id, projectElement.querySelector('.comments'));
+              projectElement.querySelector('.commentForm').addEventListener('submit', event => {
+                event.preventDefault();
+                submitComment(event.target);
+              });
+            });
+          })
+          .catch(error => console.error('Error fetching projects:', error));
+      };
+
+      const fetchComments = (projectId, commentsContainer) => {
+        fetch(`/api/comments?projectId=${projectId}`)
+          .then(response => response.json())
+          .then(comments => {
+            commentsContainer.innerHTML = '';
+            comments.forEach(comment => {
+              const commentElement = document.createElement('div');
+              commentElement.classList.add('comment');
+              commentElement.innerHTML = `
+                <p>${comment.comment_text}</p>
+                <small>${new Date(comment.date).toLocaleString()}</small>
+              `;
+              commentsContainer.appendChild(commentElement);
+            });
+          })
+          .catch(error => console.error('Error fetching comments:', error));
+      };
+
+      const submitComment = (form) => {
+        const formData = new FormData(form);
+        fetch('/comment', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+          fetchComments(form.querySelector('.projectId').value, form.nextElementSibling);
+        })
+        .catch(error => console.error('Error submitting comment:', error));
+      };
+
+      window.onload = fetchProjects;
+
+      const socket = io();
+      socket.on('newProject', project => {
+        const notificationMessage = document.getElementById('notificationMessage');
+        notificationMessage.textContent = `New project uploaded: ${project.projectTitle}`;
+        fetchProjects();
       });
-    })
-    .catch(error => console.error('Error fetching projects:', error));
-};
-
-// Fetch projects when the page loads
-window.onload = fetchProjects;
-
-// Listen for real-time updates
-socket.on('newProject', (project) => {
-  const notifications = document.getElementById('notifications');
-  const notificationMessage = document.getElementById('notificationMessage');
-  notificationMessage.textContent = `New project uploaded: ${project.projectTitle}`;
-  notifications.style.display = 'block';
-
-  fetchProjects(); // Re-fetch and update the projects list
-});
-
-
-        // Function to handle logout
-        function logout() {
-            window.location.href = "login.html";
-        }
-        
-        
-        document.getElementById('logout').addEventListener('click', logout);
-
-        const socket = io();
-
-
     </script>
-    
 </body>
 </html>
