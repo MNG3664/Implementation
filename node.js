@@ -232,9 +232,13 @@ app.get('/repository', (req, res) => {
 
 app.get('/api/projects', (req, res) => {
   const searchQuery = req.query.search ? req.query.search.toLowerCase() : '';
-  let query = 'SELECT project_name, filePath, student_ID FROM project';
+  let query = `
+      SELECT p.project_name, p.project_description, p.filePath, s.first_name, s.last_name 
+      FROM project p
+      JOIN student s ON p.student_ID = s.student_ID
+  `;
   if (searchQuery) {
-    query += ` WHERE LOWER(project_name) LIKE '%${searchQuery}%'`;
+    query += ` WHERE LOWER(p.project_name) LIKE '%${searchQuery}%'`;
   }
   connection.query(query, (error, results) => {
     if (error) {

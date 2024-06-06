@@ -40,8 +40,10 @@
                         const projectElement = document.createElement('div');
                         projectElement.classList.add('project');
                         projectElement.innerHTML = `
-                            <h3>${project.project_name}</h3>
-                            <p><a href="${project.filePath}" download>Download Project</a></p>
+                        <h3>${project.project_name}</h3>
+                        <p>${project.project_description}</p>
+                        <p>Uploaded by: ${project.first_name} ${project.last_name}</p>
+                        <p><a href="${project.filePath}" download>Download Project</a></p>
                         `;
                         projectsList.appendChild(projectElement);
                     });

@@ -1,105 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project</title>
-    <link rel="stylesheet" href="proj.css">
-    <script src="/socket.io/socket.io.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project</title>
+  <link rel="stylesheet" href="proj.css">
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-              <li><a href="/projects">Project</a></li>
-              <li><a href="#supervisor_comments">Supervisor Comments</a></li>
-              <li><a href="/supervisor-dashboard.html">Profile</a></li> 
-              <li><a href="/login.html" id="logout">Logout</a></li>  
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="notifications">
-            <h2>Notifications</h2>
-            <p id="notificationMessage">No new notifications at the moment.</p>
-        </section>
-        <div class="container">
-            <h2>Uploaded Projects</h2>
-            <div id="projectsList"></div>
-        </div>
-    </main>
-    <script>
-      const fetchProjects = () => {
-        fetch('/api/projects')
-          .then(response => response.json())
-          .then(projects => {
-            const projectsList = document.getElementById('projectsList');
-            projectsList.innerHTML = '';
-            projects.forEach(project => {
-              const projectElement = document.createElement('div');
-              projectElement.classList.add('project');
-              projectElement.innerHTML = `
-                <h3>${project.project_name}</h3>
-                <p>Uploaded by: ${project.student_name}</p>
-                <p><a href="${project.filePath}" download>Download Project</a></p>
-                <form class="commentForm">
-                  <label for="commentText">Add Comment:</label>
-                  <textarea class="commentText" name="commentText" required></textarea>
-                  <input type="hidden" class="projectId" name="projectId" value="${project.id}">
-                  <button type="submit">Submit Comment</button>
-                </form>
-                <div class="comments"></div>
-              `;
-              projectsList.appendChild(projectElement);
-              fetchComments(project.id, projectElement.querySelector('.comments'));
-              projectElement.querySelector('.commentForm').addEventListener('submit', event => {
-                event.preventDefault();
-                submitComment(event.target);
-              });
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/projects">Project</a></li>
+        <li><a href="#supervisor_comments">Supervisor Comments</a></li>
+        <li><a href="/supervisor-dashboard.html">Profile</a></li> 
+        <li><a href="/login.html" id="logout">Logout</a></li>  
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="notifications">
+      <h2>Notifications</h2>
+      <p id="notificationMessage">No new notifications at the moment.</p>
+    </section>
+    <div class="container">
+      <h2>Uploaded Projects</h2>
+      <div id="projectsList"></div>
+    </div>
+  </main>
+  <script>
+    const fetchProjects = () => {
+      fetch('/api/projects')
+        .then(response => response.json())
+        .then(projects => {
+          const projectsList = document.getElementById('projectsList');
+          projectsList.innerHTML = '';
+          projects.forEach(project => {
+            const projectElement = document.createElement('div');
+            projectElement.classList.add('project');
+            projectElement.innerHTML = `
+              <h3>${project.project_name}</h3>
+              <p>${project.project_description}</p>
+              <p>Uploaded by: ${project.first_name} ${project.last_name}</p>
+              <p><a href="${project.filePath}" download>Download Project</a></p>
+              <form class="commentForm">
+                <label for="commentText">Add Comment:</label>
+                <textarea class="commentText" name="commentText" required></textarea>
+                <input type="hidden" class="projectId" name="projectId" value="${project.id}">
+                <button type="submit">Submit Comment</button>
+              </form>
+              <div class="comments"></div>
+            `;
+            projectsList.appendChild(projectElement);
+            fetchComments(project.id, projectElement.querySelector('.comments'));
+            projectElement.querySelector('.commentForm').addEventListener('submit', event => {
+              event.preventDefault();
+              submitComment(event.target);
             });
-          })
-          .catch(error => console.error('Error fetching projects:', error));
-      };
-
-      const fetchComments = (projectId, commentsContainer) => {
-        fetch(`/api/comments?projectId=${projectId}`)
-          .then(response => response.json())
-          .then(comments => {
-            commentsContainer.innerHTML = '';
-            comments.forEach(comment => {
-              const commentElement = document.createElement('div');
-              commentElement.classList.add('comment');
-              commentElement.innerHTML = `
-                <p>${comment.comment_text}</p>
-                <small>${new Date(comment.date).toLocaleString()}</small>
-              `;
-              commentsContainer.appendChild(commentElement);
-            });
-          })
-          .catch(error => console.error('Error fetching comments:', error));
-      };
-
-      const submitComment = (form) => {
-        const formData = new FormData(form);
-        fetch('/comment', {
-          method: 'POST',
-          body: formData
+          });
         })
-        .then(response => response.text())
-        .then(data => {
-          fetchComments(form.querySelector('.projectId').value, form.nextElementSibling);
+        .catch(error => console.error('Error fetching projects:', error));
+    };
+
+    const fetchComments = (projectId, commentsContainer) => {
+      fetch(`/api/comments?projectId=${projectId}`)
+        .then(response => response.json())
+        .then(comments => {
+          commentsContainer.innerHTML = '';
+          comments.forEach(comment => {
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            commentElement.innerHTML = `
+              <p>${comment.comment_text}</p>
+              <small>${new Date(comment.date).toLocaleString()}</small>
+            `;
+            commentsContainer.appendChild(commentElement);
+          });
         })
-        .catch(error => console.error('Error submitting comment:', error));
-      };
+        .catch(error => console.error('Error fetching comments:', error));
+    };
 
-      window.onload = fetchProjects;
+    const submitComment = (form) => {
+      const formData = new FormData(form);
+      fetch('/comment', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        fetchComments(form.querySelector('.projectId').value, form.nextElementSibling);
+      })
+      .catch(error => console.error('Error submitting comment:', error));
+    };
 
-      const socket = io();
-      socket.on('newProject', project => {
-        const notificationMessage = document.getElementById('notificationMessage');
-        notificationMessage.textContent = `New project uploaded: ${project.projectTitle}`;
-        fetchProjects();
-      });
-    </script>
+    window.onload = fetchProjects;
+
+    const socket = io();
+    socket.on('newProject', project => {
+      const notificationMessage = document.getElementById('notificationMessage');
+      notificationMessage.textContent = `New project uploaded: ${project.projectTitle}`;
+      fetchProjects();
+    });
+  </script>
 </body>
 </html>
