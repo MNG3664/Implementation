@@ -1,7 +1,7 @@
-## Student Project & Montoring System
+### Student Project & Montoring System
 This web application allows students to archive and manage their academic projects, while supervisors can monitor and review their students' progress. The system provides a platform for easy project management and oversight.
 
-## Features
+### Features
   + Students Features:
     + Upload and archive project files.
     + View previously uploaded projects.
