@@ -1,3 +1,5 @@
-This project was created using JavaScript, HTML and CSS.
-To access the web app "node node.j" should be written in the console
-The web app should be availabel at http://localhost:3000/login
+# Student Project & Montoring System
+This web application allows students to archive and manage their academic projects, while supervisors can monitor and review their students' progress. The system provides a platform for easy project management and oversight.
+
+## Features
+  + Students Features
