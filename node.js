@@ -385,11 +385,8 @@ app.post('/submit-comment', (req, res) => {
   });
 
 
-
-
   res.status(200).send('Comment submitted successfully');
 });
-
 
 
 
@@ -398,10 +395,6 @@ app.get('/Upload-project', (req, res) => {
   // For example, you could render a login page
   res.sendFile(path.join(__dirname, 'Upload-project.html'));
 });
-
-
-
-
 
 
 
@@ -531,9 +524,6 @@ app.post('/register', (req, res) => {
     res.json({ message: 'User registered successfully.' });
   });
 });
-
-
-
 
 
 
